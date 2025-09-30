@@ -1,0 +1,11 @@
+
+- _target_: photo_gen.evaluation.evaluation.VisualizeGeneratedSamples
+  n_samples: 4
+- _target_: photo_gen.evaluation.evaluation.PlotFomHistogram
+- _target_: photo_gen.evaluation.evaluation.PCAProjPerDimEntropy
+  dim: 2
+  n_neighbors: 4
+  metric: True
+- _target_: photo_gen.evaluation.evaluation.NNDistanceTrainSet
+  train_set_path: ~/scratch/nanophoto/topoptim/fulloptim/images.npy
+  metric: True

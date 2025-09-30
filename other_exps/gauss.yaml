@@ -1,0 +1,23 @@
+defaults:
+  - override hydra/sweeper: orion
+# general
+debug: False
+checkpoint_load_path: ~/repos/diffusion-model/checkpoint.pt
+data_path: ~/scratch/nanophoto/topoptim/fulloptim/params.npy
+guide_file: ~/repos/diffusion-model/guided_gen/guide.npy
+savepath: images
+num_time_steps: 1000
+n_samples: 16
+
+# training
+lr: 0.00005 
+n_epochs: 1
+ema_decay: 0.9999
+image_shape: [101, 91]
+batch_size: 16
+
+# inference
+inference_only: False
+n_images: 256
+
+logger: True

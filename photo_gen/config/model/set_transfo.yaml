@@ -1,0 +1,9 @@
+num_time_steps: 1000
+dim_input: 4
+num_outputs: 50
+dim_output: 4
+num_inds: 50
+dim_hidden: 128
+num_heads: 4
+
+_target_: photo_gen.models.set_models.SetTransformer

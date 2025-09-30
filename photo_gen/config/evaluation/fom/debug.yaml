@@ -1,0 +1,2 @@
+# Debug evaluation - uses random FOM values
+_target_: photo_gen.models.evaluation.debug_fom_evaluation

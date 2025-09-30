@@ -1,0 +1,3 @@
+# VAE inference configuration
+_target_: photo_gen.models.vae.inference
+_partial_: true

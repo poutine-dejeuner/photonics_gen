@@ -1,0 +1,16 @@
+# VAE-specific comparison configuration
+defaults:
+  - comparison_config
+  - model: vae
+  - train: vae
+  - inference: vae
+
+# Override specific settings for VAE experiments
+experiment:
+  name: "vae_comparison"
+  description: "VAE model comparison with diffusion models"
+  tags: ["vae", "comparison", "beta-vae"]
+
+# VAE-specific overrides
+model:
+  beta: 1.0  # Standard VAE, can be changed to β-VAE

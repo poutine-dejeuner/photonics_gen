@@ -1,0 +1,31 @@
+# Optimized UNet model configuration for faster training
+name: unet_fast
+defaults:
+  - /inference: unet
+
+_target_: photo_gen.models.unet.UNET
+
+# Optimized architecture - reduced channels for 101x91 images
+input_channels: 1
+output_channels: 1
+# Channels: [32, 64, 128, 256, 256, 192]  # Much smaller than default [64, 128, 256, 512, 512, 384]
+first_channels: 32
+num_layers: 6
+Attentions: [false, false, true, false, true, false]  # Reduced attention layers
+Upscales: [false, false, false, true, true, true]
+num_groups: 8  # Reduced from 32 for smaller channels
+dropout_prob: 0.1  # Add dropout for regularization
+num_heads: 4  # Reduced from 8
+time_steps: 1000
+
+# Training parameters optimized for speed
+seed: -1
+lr: 0.0001  # Slightly higher learning rate
+batch_size: 32  # Increased from 8 for better GPU utilization
+num_time_steps: 1000
+ema_decay: 0.9999
+
+# Mixed precision and optimization flags
+use_mixed_precision: true
+gradient_accumulation_steps: 2
+compile_model: true

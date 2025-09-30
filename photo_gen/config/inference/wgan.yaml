@@ -1,0 +1,3 @@
+# WGAN inference configuration
+_target_: photo_gen.models.wgan.inference
+_partial_: true

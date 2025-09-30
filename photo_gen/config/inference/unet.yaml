@@ -1,0 +1,7 @@
+# UNet inference configuration
+_target_: photo_gen.models.unet.inference
+_partial_: true
+
+batch_size: 8
+fom_eval: False
+guide: ~/scratch/nanophoto/topoptim/lowfom/distselect/images.npy

@@ -1,0 +1,77 @@
+defaults:
+  - _self_
+  - model: unet_fast
+  - train: unet_fast
+  - evaluation: diffusion_data_scaling
+
+# Experiment configuration
+debug: False
+checkpoint_load_path: null  # Set to null to train from scratch, or provide valid WGAN checkpoint path
+data_path: ~/scratch/nanophoto/topoptim/fulloptim/images.npy
+guide_file: ~/repos/diffusion-model/guided_gen/guide.npy
+savepath: images
+inference_only: False
+evaluation_only: False
+# Path to images from previous run for evaluation_only mode
+evaluation_images_path: null  # Set to path of images directory from previous run
+meep: True
+train_set_size: 284
+n_to_generate: 1000
+n_compute_steps: 5_000_000
+n_model_parameters: 35_000_000
+image_shape: [101, 91]
+
+# Debug configuration - values to override when debug=True
+debug_config:
+  n_to_generate: 16
+  train_set_size: 32
+  n_epochs: 1
+
+# Data configuration
+data:
+  path: "~/scratch/nanophoto/topoptim/fulloptim/images.npy"
+  n_samples: ${train_set_size}
+  processing:
+    normalize: true
+    normalization_threshold: 1.0
+    add_channel_dim: true  # Add channel dimension if data is 3D (H, W)
+
+# Output configuration
+output:
+  base_path: "nanophoto/comparison/experiments"
+  scratch_base: "${env:SCRATCH,}"  # Use OmegaConf resolver for environment variable
+  debug_subdir: "debug"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  checkpoint_filename: "checkpoint.pt"
+  images_subfolder: "images"
+
+# Training configuration
+training:
+  # Parameters to copy from model config to top level for UNet compatibility
+  params_to_copy: 
+    - n_epochs
+    - lr
+    - batch_size
+    - num_time_steps
+    - ema_decay
+    - seed
+    - img_size
+    - img_channels
+
+# Logger configuration (wandb)
+logger:
+  enabled: True
+  project: "nanophoto"
+  entity: "nanophoto"
+  group_name_template: "comparison_{model_name}"
+  run_name_template: "{model_name}_{job_id}"
+
+log_level: DEBUG
+name: "model_comparison"
+
+seed: ${oc.env:SLURM_PROCID,123}
+
+experiment:
+  name: "generative_model_comparison"
+  description: "Comparing wGAN, VAE, and other models with diffusion models"
+  tags: ["comparison", "generative", "nanophotonics"]

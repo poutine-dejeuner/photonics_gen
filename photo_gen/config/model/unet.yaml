@@ -1,0 +1,27 @@
+# UNet model configuration
+name: unet
+defaults:
+  - /inference: unet
+
+_target_: photo_gen.models.unet.UNET
+
+# Simplified model architecture for testing
+input_channels: 1
+output_channels: 1
+# Channels: [64, 128]  # Very simple 2-layer architecture
+# Attentions: [false, false]  # Disable attention for testing
+# Upscales: [false, true]  # First down, second up
+# num_groups: 32
+# dropout_prob: 0.0
+# num_heads: 8
+time_steps: 1000
+
+# Training parameters  
+seed: -1
+lr: 0.00002
+train_set_size: -1  # -1 means use all available data
+n_compute_steps: 2_500_000
+batch_size: 8
+num_time_steps: 1000
+ema_decay: 0.9999
+# n_epochs will be computed dynamically as int(n_compute_steps / train_set_size)

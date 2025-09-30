@@ -1,0 +1,22 @@
+# VAE model configuration
+name: vae
+defaults:
+  - /train: vae
+  - /inference: vae
+
+_target_: photo_gen.models.vae.VAE
+
+# Model architecture parameters
+latent_dim: 128
+img_channels: 1
+img_size: [101,91]
+hidden_dim: 144
+
+# Training parameters
+batch_size: 32
+lr: 0.001
+beta: 1.0  # KL weight for β-VAE (1.0 = standard VAE, >1.0 = β-VAE)
+seed: -1
+train_set_size: -1  # -1 means use all available data
+n_compute_steps: 2_500_000
+# n_epochs will be computed dynamically as int(n_compute_steps / train_set_size)

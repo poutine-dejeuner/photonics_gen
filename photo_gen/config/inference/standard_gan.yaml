@@ -1,0 +1,3 @@
+# Standard GAN inference configuration
+_target_: photo_gen.models.standard_gan.inference
+_partial_: true

@@ -1,0 +1,23 @@
+# WGAN model configuration
+name: wgan
+defaults:
+  - /inference: wgan
+
+_target_: photo_gen.models.wgan.WGAN
+
+# Model architecture parameters
+latent_dim: 128
+img_channels: 1
+img_size: [101,91]  # Will be overridden by actual data size
+hidden_dim: 200
+
+# Training parameters
+batch_size: 32
+lr_g: 0.0001
+lr_c: 0.0001
+n_critic: 5  # Train critic 5 times per generator step
+lambda_gp: 10  # Gradient penalty coefficient
+seed: -1
+train_set_size: -1  # -1 means use all available data
+n_compute_steps: 2_500_000
+

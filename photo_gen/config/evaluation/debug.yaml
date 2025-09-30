@@ -1,0 +1,6 @@
+defaults:
+  - _self_
+  - fom: debug
+  - functions: debug
+
+functions: []  # This will be populated by the functions configs

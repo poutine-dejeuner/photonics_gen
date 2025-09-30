@@ -1,0 +1,2 @@
+_target_: photo_gen.models.unet_fast.train_fast
+_partial_: true

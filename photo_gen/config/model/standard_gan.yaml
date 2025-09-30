@@ -1,0 +1,23 @@
+# Standard GAN model configuration
+name: standard_gan
+defaults:
+  - /train: standard_gan
+  - /inference: standard_gan
+
+_target_: photo_gen.models.standard_gan.StandardGAN
+
+# Model architecture parameters
+latent_dim: 128
+img_channels: 1
+img_size: [101, 91]
+hidden_dim: 200
+
+# Training parameters
+batch_size: 32
+lr_g: 0.0002  # Generator learning rate
+lr_c: 0.0002  # Discriminator learning rate
+label_smoothing: 0.1  # Label smoothing for discriminator
+seed: -1
+train_set_size: -1  # -1 means use all available data
+n_compute_steps: 2_500_000
+# n_epochs will be computed dynamically as int(n_compute_steps / train_set_size)

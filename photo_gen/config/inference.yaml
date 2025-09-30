@@ -1,0 +1,31 @@
+# general
+debug: False
+savepath: images
+
+# inference
+inference_only: True
+n_images: 16
+image_shape: [101, 91]
+
+defaults:
+  - model: unet
+  # - override /trainer/logger: wandb
+  # - override /hydra/sweeper: orion
+  # - override /resources: gpu
+  # - override /cluster: 'current' # use `current` if you are already on a cluster, otherwise use one of the `cluster` configs.
+
+log_level: DEBUG
+name: "inference"
+
+seed: ${oc.env:SLURM_PROCID,123}
+
+algorithm:
+  optimizer:
+    # This here will get overwritten by the sweeper.
+    lr: 0.002
+
+
+debug_cfg:
+  n_images: 1
+  n_samples: 16
+  n_epochs: 1

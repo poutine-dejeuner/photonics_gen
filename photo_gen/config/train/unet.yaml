@@ -1,0 +1,5 @@
+# UNet training configuration
+_target_: photo_gen.models.unet.train
+_partial_: true
+
+# All parameters will be passed via the cfg object, not as individual kwargs

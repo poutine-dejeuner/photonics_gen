@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "photo-gen"
+version = "0.1.0"
+description = "A study of diffusion models for photonic structure generation"
+authors = [
+    {name = "Vincent Letourneau", email = "poutine-dejeuner@github.com"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+dependencies = [
+    "torch>=1.9.0",
+    "torchvision>=0.10.0",
+    "numpy>=1.20.0",
+    "matplotlib>=3.3.0",
+    "tqdm>=4.60.0",
+    "einops>=0.3.0",
+    "hydra-core>=1.1.0",
+    "omegaconf>=2.1.0",
+    "timm>=0.9.0",
+    "icecream>=2.1.0",
+    "pyyaml>=5.4.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0.0",
+    "pytest-cov>=2.12.0",
+    "black>=21.0.0",
+    "isort>=5.9.0",
+    "flake8>=3.9.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/poutine-dejeuner/diffusion-model"
+Repository = "https://github.com/poutine-dejeuner/diffusion-model"
+
+[project.scripts]
+photo-gen-train = "photo_gen.scripts.train:main"
+photo-gen-inference = "photo_gen.scripts.inference:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["photo_gen*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "."]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short --strict-markers"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "setup.py",
+    "*/venv/*",
+    "*/__pycache__/*",
+]

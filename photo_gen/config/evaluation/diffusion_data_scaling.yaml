@@ -1,0 +1,9 @@
+# Force re-computation of all evaluation functions, even if already computed
+force_recompute: false
+
+defaults:
+  - _self_
+  - fom: meep
+  - functions: complete
+  - datasets: diffusion_data_scaling2
+ 

@@ -1,0 +1,53 @@
+mode: MULTIRUN
+# TODO: Make it so running the same command twice in the same job id resumes from the last checkpoint.
+run:
+  # output directory, generated dynamically on each run
+  dir: logs/${name}/runs
+sweep:
+  dir: logs/${name}/multiruns/
+  # subdir: ${hydra.job.num}
+  subdir: ${hydra.job.id}/task${oc.env:SLURM_PROCID,0}
+
+launcher:
+  # todo: bump this up.
+  array_parallelism: 5 # max num of jobs to run in parallel
+  additional_parameters:
+    time: 0-00:10:00 # maximum wall time allocated for the job (D-HH:MM:SS)
+    # TODO: Pack more than one job on a single GPU, and support this with both a
+    # patched submitit launcher as well as our remote submitit launcher, as well as by patching the
+    # orion sweeper to not drop these other results.
+    # ntasks_per_gpu: 1
+sweeper:
+  params:
+    n_samples: "uniform(16, 284, discrete=True)"
+    # algorithm:
+      # optimizer:
+        # lr: "loguniform(1e-6, 1.0, default_value=3e-4)"
+        # weight_decay: "loguniform(1e-6, 1e-2, default_value=0)"
+    # todo: setup a fidelity parameter. Seems to not be working right now.
+    # trainer:
+    #   # Let the HPO algorithm allocate more epochs to more promising HP configurations.
+    #   max_epochs: "fidelity(1, 10, default_value=1)"
+
+  parametrization: null
+  experiment:
+    name: "${name}"
+    version: 1
+
+  algorithm:
+    #  BUG: Getting a weird bug with TPE: KeyError in `dum_below_trials = [...]` at line 397.
+    type: tpe
+    config:
+      seed: 1
+
+  worker:
+    n_workers: ${hydra.launcher.array_parallelism}
+    max_broken: 10000
+    max_trials: 10
+
+  storage:
+    type: legacy
+    use_hydra_path: false
+    database:
+      type: pickleddb
+      host: "logs/${name}/multiruns/database.pkl"

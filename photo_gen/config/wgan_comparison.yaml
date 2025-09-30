@@ -1,0 +1,16 @@
+# WGAN-specific comparison configuration
+defaults:
+  - comparison_config
+  - model: wgan
+  - train: wgan
+  - inference: wgan
+
+# Override specific settings for WGAN experiments
+experiment:
+  name: "wgan_comparison"
+  description: "WGAN-GP model comparison with diffusion models"
+  tags: ["wgan", "comparison", "gradient-penalty"]
+
+# WGAN-specific overrides
+model:
+  lambda_gp: 10  # Gradient penalty coefficient
