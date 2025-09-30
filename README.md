@@ -3,6 +3,15 @@ Implementation and comparison of different diffusion models for image generation
 
 ![image](https://github.com/poutine-dejeuner/photonics-gen/diffusion.png)
 
+Download data with
+
+`wget --no-check-certificate 'https://drive.google.com/file/d/1-ZTBtsQsQ6Sk2VR-zNRhTDjlmzc6bsd2/view?usp=sharing' -O images.zip`
+
+`unzip images.zip`
+`path = ~/scratch/nanophoto/topoptim/fulloptim/`
+`mkdir -R path`
+`mv images.npy path` 
+
 To train models, use train.py or to run on slurm use `sbatch setoff.sh main.py`.
 
 main.py uses hydra. Default configs can be overridden by 
