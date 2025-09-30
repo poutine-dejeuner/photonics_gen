@@ -1,5 +1,5 @@
 # photo-gen
-Implementation and comparison of different diffusion models for image generation in low data setting with objective high FOM and generation diversity.
+Implementation and comparison of different neural network models for image generation in low data setting with objective high FOM and generation diversity. The Denoising Difusion model with a UNet is the clear winner. The comparison focuses on different entropy based diversity metrics.
 
 ![image](https://github.com/poutine-dejeuner/photonics-gen/diffusion.png)
 
